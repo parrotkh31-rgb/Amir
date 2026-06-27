@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robbery — Mini Presentation</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif}
+
+  .slide{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:90px 60px 80px;
+    opacity:0;pointer-events:none;
+    transition:opacity .5s ease,transform .5s ease;
+    transform:translateY(30px);
+    text-align:center;
+  }
+  .slide.active{opacity:1;pointer-events:all;transform:translateY(0)}
+  .slide.out{opacity:0;transform:translateY(-30px)}
+
+  @keyframes popIn{from{opacity:0;transform:scale(.85) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+
+  /* ── SLIDE 1 — Title ── */
+  #s1{background:#0f172a;overflow:hidden}
+  #s1 .orb1{position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(124,58,237,.16);top:-160px;right:-100px;animation:float1 7s ease-in-out infinite;pointer-events:none}
+  #s1 .orb2{position:absolute;width:360px;height:360px;border-radius:50%;background:rgba(239,68,68,.1);bottom:-80px;left:-80px;animation:float2 9s ease-in-out infinite;pointer-events:none}
+  #s1 .ico{font-size:68px;margin-bottom:20px;animation:popIn .7s .1s both cubic-bezier(.34,1.56,.64,1)}
+  #s1 .badge{display:inline-block;padding:6px 20px;border-radius:50px;border:1px solid rgba(124,58,237,.5);background:rgba(124,58,237,.2);color:#c4b5fd;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;animation:popIn .7s .2s both cubic-bezier(.34,1.56,.64,1)}
+  #s1 h1{font-size:58px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px;animation:popIn .7s .3s both cubic-bezier(.34,1.56,.64,1)}
+  #s1 h1 em{color:#7c3aed;font-style:normal}
+  #s1 p{font-size:17px;color:rgba(255,255,255,.45);max-width:440px;line-height:1.7;animation:popIn .7s .4s both cubic-bezier(.34,1.56,.64,1)}
+
+  /* ── SLIDE 2 — What is robbery ── */
+  #s2{background:#1e1b4b}
+  #s2 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#818cf8;margin-bottom:10px}
+  #s2 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:30px}
+  #s2 .def-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px 32px;max-width:620px;width:100%;text-align:left;animation:slideUp .5s .1s both}
+  #s2 .def-box p{font-size:17px;color:rgba(255,255,255,.8);line-height:1.8}
+  #s2 .def-box p strong{color:#c4b5fd}
+  #s2 .tags{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center;animation:slideUp .5s .25s both}
+  #s2 .tag{padding:7px 18px;border-radius:50px;font-size:13px;font-weight:600}
+  #s2 .t1{background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);color:#c4b5fd}
+  #s2 .t2{background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.35);color:#fca5a5}
+  #s2 .t3{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+
+  /* ── SLIDE 3 — Consequences ── */
+  #s3{background:#0c1a2e}
+  #s3 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+  #s3 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:30px}
+  #s3 .steps{display:flex;gap:18px;width:100%;max-width:680px}
+  #s3 .step{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:26px 18px;text-align:center;animation:slideUp .5s both}
+  #s3 .step:nth-child(2){animation-delay:.12s}
+  #s3 .step:nth-child(3){animation-delay:.24s}
+  #s3 .num{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;margin:0 auto 14px}
+  #s3 .sico{font-size:32px;margin-bottom:12px}
+  #s3 .step h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+  #s3 .step p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+  #s3 .note{margin-top:22px;padding:14px 24px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);font-size:13px;color:#fca5a5;max-width:540px;animation:slideUp .5s .38s both}
+
+  /* ── SLIDE 4 — UK ── */
+  #s4{background:#0d1f16}
+  #s4 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#34d399;margin-bottom:10px}
+  #s4 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:28px}
+  #s4 .grid{display:flex;gap:18px;width:100%;max-width:700px}
+  #s4 .left{flex:1.5;background:rgba(255,255,255,.05);border:1px solid rgba(16,185,129,.2);border-radius:18px;padding:26px;text-align:left;animation:slideUp .5s both}
+  #s4 .left h3{font-size:14px;font-weight:700;color:#6ee7b7;margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em}
+  #s4 .left li{font-size:14px;color:rgba(255,255,255,.6);line-height:1.85;list-style:none;display:flex;gap:10px}
+  #s4 .left li::before{content:"→";color:#10b981;flex-shrink:0}
+  #s4 .right{flex:1;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:18px;padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:slideUp .5s .15s both}
+  #s4 .flag{font-size:44px;margin-bottom:10px}
+  #s4 .big{font-size:54px;font-weight:700;color:#6ee7b7;line-height:1;margin-bottom:8px}
+  #s4 .right p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5}
+
+  /* ── SLIDE 5 — Conclusion ── */
+  #s5{background:#12072a}
+  #s5 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;margin-bottom:10px}
+  #s5 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:26px}
+  #s5 .items{display:flex;flex-direction:column;gap:13px;width:100%;max-width:520px}
+  #s5 .ci{border-radius:14px;padding:17px 22px;display:flex;align-items:center;gap:14px;text-align:left;animation:slideUp .5s both}
+  #s5 .ci:nth-child(1){background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3)}
+  #s5 .ci:nth-child(2){background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.28);animation-delay:.1s}
+  #s5 .ci:nth-child(3){background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);animation-delay:.2s}
+  #s5 .cico{font-size:24px;flex-shrink:0}
+  #s5 .ci p{font-size:14.5px;color:rgba(255,255,255,.75);line-height:1.5}
+  #s5 .ci p strong{color:#fff}
+  #s5 .end{margin-top:26px;font-size:12px;color:rgba(255,255,255,.22);letter-spacing:.07em}
+
+  /* ── NAV ── */
+  .navbar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 36px;background:rgba(0,0,0,.38);backdrop-filter:blur(14px);z-index:100;border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-logo{font-size:14px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.03em}
+  .dots{display:flex;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;border:none;transition:background .3s,transform .3s}
+  .dot.active{background:#7c3aed;transform:scale(1.45)}
+
+  /* ── CONTROLS ── */
+  .controls{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:rgba(0,0,0,.42);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.07);z-index:100}
+  .btn{display:flex;align-items:center;gap:8px;padding:11px 28px;border-radius:50px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s,opacity .15s}
+  .btn:hover{transform:scale(1.05)}
+  .btn:active{transform:scale(.96)}
+  .btn-prev{background:rgba(255,255,255,.08);color:rgba(255,255,255,.55)}
+  .btn-next{background:#7c3aed;color:#fff}
+  .counter{font-size:13px;color:rgba(255,255,255,.28)}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <span class="nav-logo">⚖️ Robbery — Mini Presentation</span>
+  <div class="dots" id="dots"></div>
+</nav>
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="s1">
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="ico">⚖️</div>
+  <span class="badge">Mini Presentation</span>
+  <h1>ROBBERY</h1>
+  <p>Crime, consequences, and what the law says — everything you need to know.</p>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="s2">
+  <p class="eyebrow">Slide 1</p>
+  <h2>What is Robbery?</h2>
+  <div class="def-box">
+    <p>Robbery is <strong>stealing money or things from a person</strong> by using <strong>force or threats</strong>. The victim is present at the time of the crime.</p>
+  </div>
+  <div class="tags">
+    <span class="tag t1">Force or threats</span>
+    <span class="tag t2">Stealing from a person</span>
+    <span class="tag t3">Victim is present</span>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="s3">
+  <p class="eyebrow">Slide 2</p>
+  <h2>What Happens If You Do It?</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num" style="background:#ef4444">1</div>
+      <div class="sico">🚔</div>
+      <h3>Arrested</h3>
+      <p>You can be arrested by the police and taken into custody</p>
+    </div>
+    <div class="step">
+      <div class="num" style="background:#f59e0b">2</div>
+      <div class="sico">⚖️</div>
+      <h3>Go to Court</h3>
+      <p>You will face a criminal trial in a court of law</p>
+    </div>
+    <div class="step">
+      <div class="num" style="background:#7c3aed">3</div>
+      <div class="sico">🏛️</div>
+      <h3>Prison Sentence</h3>
+      <p>If found guilty, you can get a serious prison sentence</p>
+    </div>
+  </div>
+  <div class="note">⛔ If you commit robbery, you can be arrested, go to court, and get a prison sentence.</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="s4">
+  <p class="eyebrow">Slide 3 — Example</p>
+  <h2>United Kingdom 🇬🇧</h2>
+  <div class="grid">
+    <div class="left">
+      <h3>UK Law on Robbery</h3>
+      <ul>
+        <li>In the UK, robbery is a <strong style="color:#6ee7b7">serious crime</strong></li>
+        <li>Covered under the Theft Act 1968</li>
+        <li>A person can go to prison for <strong style="color:#6ee7b7">many years</strong></li>
+        <li>Up to <strong style="color:#6ee7b7">life imprisonment</strong> in the most serious cases</li>
+        <li>Victim safety is always the top priority</li>
+      </ul>
+    </div>
+    <div class="right">
+      <div class="flag">🇬🇧</div>
+      <div class="big">LIFE</div>
+      <p>imprisonment in<br>the most serious cases</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="s5">
+  <p class="eyebrow">Conclusion</p>
+  <h2>Robbery is Always Wrong</h2>
+  <div class="items">
+    <div class="ci">
+      <span class="cico">🚫</span>
+      <p><strong>Robbery is illegal.</strong> It is a serious crime in every country around the world.</p>
+    </div>
+    <div class="ci">
+      <span class="cico">💔</span>
+      <p><strong>It hurts people.</strong> Robbery causes real harm to victims — physically and emotionally.</p>
+    </div>
+    <div class="ci">
+      <span class="cico">⚠️</span>
+      <p><strong>Serious consequences.</strong> Prison, a criminal record, and a life changed forever.</p>
+    </div>
+  </div>
+  <p class="end">Stay safe · Stay legal · Make the right choice</p>
+</div>
+
+<div class="controls">
+  <button class="btn btn-prev" id="prevBtn" onclick="go(-1)">← Back</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button class="btn btn-next" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let cur = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function goTo(next) {
+    if (next === cur) return;
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('out');
+    setTimeout(() => { slides[cur].classList.remove('out'); }, 520);
+    dotsWrap.children[cur].classList.remove('active');
+    cur = next;
+    slides[cur].classList.remove('out');
+    slides[cur].classList.add('active');
+    dotsWrap.children[cur].classList.add('active');
+    counter.textContent = (cur + 1) + ' / ' + slides.length;
+    prevBtn.style.opacity = cur === 0 ? '0.3' : '1';
+    prevBtn.style.pointerEvents = cur === 0 ? 'none' : 'all';
+    if (cur === slides.length - 1) {
+      nextBtn.innerHTML = '✓ Done';
+      nextBtn.style.background = '#10b981';
+    } else {
+      nextBtn.innerHTML = 'Next →';
+      nextBtn.style.background = '#7c3aed';
+    }
+  }
+
+  function go(dir) { goTo(Math.max(0, Math.min(slides.length - 1, cur + dir))); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+
+  prevBtn.style.opacity = '0.3';
+  prevBtn.style.pointerEvents = 'none';
+</script>
+</body>
+</html>

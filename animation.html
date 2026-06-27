@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robbery — Mini Presentation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif}
+
+/* ── ANIMATED CANVAS BACKGROUND ── */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:90px 60px 80px;
+  opacity:0;pointer-events:none;
+  transition:opacity .55s ease,transform .55s ease;
+  transform:translateY(32px);
+  text-align:center;
+  z-index:1;
+}
+.slide.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.slide.out{opacity:0;transform:translateY(-32px)}
+
+@keyframes popIn{from{opacity:0;transform:scale(.82) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* SLIDE 1 */
+#s1 .ico{font-size:68px;margin-bottom:20px;animation:popIn .7s .1s both cubic-bezier(.34,1.56,.64,1)}
+#s1 .badge{display:inline-block;padding:6px 20px;border-radius:50px;border:1px solid rgba(124,58,237,.55);background:rgba(124,58,237,.22);color:#c4b5fd;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:22px;animation:popIn .7s .2s both cubic-bezier(.34,1.56,.64,1)}
+#s1 h1{font-size:62px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:18px;animation:popIn .7s .3s both cubic-bezier(.34,1.56,.64,1)}
+#s1 p{font-size:17px;color:rgba(255,255,255,.45);max-width:440px;line-height:1.7;animation:popIn .7s .4s both cubic-bezier(.34,1.56,.64,1)}
+
+/* SLIDE 2 */
+#s2 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#818cf8;margin-bottom:10px}
+#s2 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:28px}
+#s2 .def-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:28px 32px;max-width:620px;width:100%;text-align:left;animation:slideUp .5s .1s both;backdrop-filter:blur(6px)}
+#s2 .def-box p{font-size:17px;color:rgba(255,255,255,.82);line-height:1.8}
+#s2 .def-box p strong{color:#c4b5fd}
+#s2 .tags{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center;animation:slideUp .5s .25s both}
+#s2 .tag{padding:7px 18px;border-radius:50px;font-size:13px;font-weight:600}
+#s2 .t1{background:rgba(124,58,237,.22);border:1px solid rgba(124,58,237,.42);color:#c4b5fd}
+#s2 .t2{background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.38);color:#fca5a5}
+#s2 .t3{background:rgba(245,158,11,.16);border:1px solid rgba(245,158,11,.32);color:#fcd34d}
+
+/* SLIDE 3 */
+#s3 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#60a5fa;margin-bottom:10px}
+#s3 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:28px}
+#s3 .steps{display:flex;gap:18px;width:100%;max-width:680px}
+#s3 .step{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:26px 18px;text-align:center;animation:slideUp .5s both;backdrop-filter:blur(6px)}
+#s3 .step:nth-child(2){animation-delay:.12s}
+#s3 .step:nth-child(3){animation-delay:.24s}
+#s3 .num{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;margin:0 auto 14px}
+#s3 .sico{font-size:32px;margin-bottom:12px}
+#s3 .step h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+#s3 .step p{font-size:13px;color:rgba(255,255,255,.48);line-height:1.6}
+#s3 .note{margin-top:22px;padding:14px 24px;border-radius:12px;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.28);font-size:13px;color:#fca5a5;max-width:540px;animation:slideUp .5s .38s both}
+
+/* SLIDE 4 */
+#s4 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#34d399;margin-bottom:10px}
+#s4 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:26px}
+#s4 .grid{display:flex;gap:18px;width:100%;max-width:700px}
+#s4 .left{flex:1.5;background:rgba(255,255,255,.07);border:1px solid rgba(16,185,129,.22);border-radius:18px;padding:26px;text-align:left;animation:slideUp .5s both;backdrop-filter:blur(6px)}
+#s4 .left h3{font-size:14px;font-weight:700;color:#6ee7b7;margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em}
+#s4 .left li{font-size:14px;color:rgba(255,255,255,.62);line-height:1.85;list-style:none;display:flex;gap:10px}
+#s4 .left li::before{content:"→";color:#10b981;flex-shrink:0}
+#s4 .right{flex:1;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.28);border-radius:18px;padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:slideUp .5s .15s both;backdrop-filter:blur(6px)}
+#s4 .flag{font-size:44px;margin-bottom:10px}
+#s4 .big{font-size:54px;font-weight:700;color:#6ee7b7;line-height:1;margin-bottom:8px}
+#s4 .right p{font-size:12px;color:rgba(255,255,255,.42);line-height:1.5}
+
+/* SLIDE 5 */
+#s5 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;margin-bottom:10px}
+#s5 h2{font-size:38px;font-weight:700;color:#fff;margin-bottom:24px}
+#s5 .items{display:flex;flex-direction:column;gap:13px;width:100%;max-width:520px}
+#s5 .ci{border-radius:14px;padding:17px 22px;display:flex;align-items:center;gap:14px;text-align:left;animation:slideUp .5s both;backdrop-filter:blur(6px)}
+#s5 .ci:nth-child(1){background:rgba(124,58,237,.17);border:1px solid rgba(124,58,237,.32)}
+#s5 .ci:nth-child(2){background:rgba(239,68,68,.13);border:1px solid rgba(239,68,68,.3);animation-delay:.1s}
+#s5 .ci:nth-child(3){background:rgba(245,158,11,.11);border:1px solid rgba(245,158,11,.27);animation-delay:.2s}
+#s5 .cico{font-size:24px;flex-shrink:0}
+#s5 .ci p{font-size:14.5px;color:rgba(255,255,255,.78);line-height:1.5}
+#s5 .ci p strong{color:#fff}
+#s5 .end{margin-top:26px;font-size:12px;color:rgba(255,255,255,.22);letter-spacing:.07em}
+
+/* NAV */
+.navbar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 36px;background:rgba(0,0,0,.3);backdrop-filter:blur(16px);z-index:100;border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-logo{font-size:14px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.03em}
+.dots{display:flex;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;border:none;transition:background .3s,transform .3s}
+.dot.active{background:#7c3aed;transform:scale(1.45)}
+
+/* CONTROLS */
+.controls{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:rgba(0,0,0,.35);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.07);z-index:100}
+.btn{display:flex;align-items:center;gap:8px;padding:11px 28px;border-radius:50px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:scale(1.05)}
+.btn:active{transform:scale(.96)}
+.btn-prev{background:rgba(255,255,255,.1);color:rgba(255,255,255,.58)}
+.btn-next{background:#7c3aed;color:#fff}
+.counter{font-size:13px;color:rgba(255,255,255,.28)}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<nav class="navbar">
+  <span class="nav-logo">⚖️ Robbery — Mini Presentation</span>
+  <div class="dots" id="dots"></div>
+</nav>
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="s1">
+  <div class="ico">⚖️</div>
+  <span class="badge">Mini Presentation</span>
+  <h1>ROBBERY</h1>
+  <p>Crime, consequences, and what the law says — everything you need to know.</p>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="s2">
+  <p class="eyebrow">Slide 1</p>
+  <h2>What is Robbery?</h2>
+  <div class="def-box">
+    <p>Robbery is <strong>stealing money or things from a person</strong> by using <strong>force or threats</strong>. The victim is present at the time of the crime.</p>
+  </div>
+  <div class="tags">
+    <span class="tag t1">Force or threats</span>
+    <span class="tag t2">Stealing from a person</span>
+    <span class="tag t3">Victim is present</span>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="s3">
+  <p class="eyebrow">Slide 2</p>
+  <h2>What Happens If You Do It?</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num" style="background:#ef4444">1</div>
+      <div class="sico">🚔</div>
+      <h3>Arrested</h3>
+      <p>You can be arrested by the police and taken into custody</p>
+    </div>
+    <div class="step">
+      <div class="num" style="background:#f59e0b">2</div>
+      <div class="sico">⚖️</div>
+      <h3>Go to Court</h3>
+      <p>You will face a criminal trial in a court of law</p>
+    </div>
+    <div class="step">
+      <div class="num" style="background:#7c3aed">3</div>
+      <div class="sico">🏛️</div>
+      <h3>Prison Sentence</h3>
+      <p>If found guilty, you can get a serious prison sentence</p>
+    </div>
+  </div>
+  <div class="note">⛔ If you commit robbery, you can be arrested, go to court, and get a prison sentence.</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="s4">
+  <p class="eyebrow">Slide 3 — Example</p>
+  <h2>United Kingdom 🇬🇧</h2>
+  <div class="grid">
+    <div class="left">
+      <h3>UK Law on Robbery</h3>
+      <ul>
+        <li>In the UK, robbery is a <strong style="color:#6ee7b7">serious crime</strong></li>
+        <li>Covered under the Theft Act 1968</li>
+        <li>A person can go to prison for <strong style="color:#6ee7b7">many years</strong></li>
+        <li>Up to <strong style="color:#6ee7b7">life imprisonment</strong> in the most serious cases</li>
+        <li>Victim safety is always the top priority</li>
+      </ul>
+    </div>
+    <div class="right">
+      <div class="flag">🇬🇧</div>
+      <div class="big">LIFE</div>
+      <p>imprisonment in<br>the most serious cases</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="s5">
+  <p class="eyebrow">Conclusion</p>
+  <h2>Robbery is Always Wrong</h2>
+  <div class="items">
+    <div class="ci">
+      <span class="cico">🚫</span>
+      <p><strong>Robbery is illegal.</strong> It is a serious crime in every country around the world.</p>
+    </div>
+    <div class="ci">
+      <span class="cico">💔</span>
+      <p><strong>It hurts people.</strong> Robbery causes real harm to victims — physically and emotionally.</p>
+    </div>
+    <div class="ci">
+      <span class="cico">⚠️</span>
+      <p><strong>Serious consequences.</strong> Prison, a criminal record, and a life changed forever.</p>
+    </div>
+  </div>
+  <p class="end">Stay safe · Stay legal · Make the right choice</p>
+</div>
+
+<div class="controls">
+  <button class="btn btn-prev" id="prevBtn" onclick="go(-1)">← Back</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button class="btn btn-next" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+/* ── PARTICLE BACKGROUND ── */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
+const SLIDE_PALETTES = [
+  { bg: '#0a0f1e', colors: ['#7c3aed','#4f46e5','#ec4899','#6366f1'] },
+  { bg: '#0d0b2e', colors: ['#818cf8','#6366f1','#a78bfa','#4f46e5'] },
+  { bg: '#050d1a', colors: ['#3b82f6','#1d4ed8','#60a5fa','#2563eb'] },
+  { bg: '#051209', colors: ['#10b981','#059669','#34d399','#065f46'] },
+  { bg: '#0a0417', colors: ['#7c3aed','#9333ea','#c084fc','#6d28d9'] },
+];
+
+let curPalette = SLIDE_PALETTES[0];
+let targetPalette = SLIDE_PALETTES[0];
+let paletteLerp = 1;
+
+function lerpColor(a, b, t) {
+  const ah = parseInt(a.slice(1),16), bh = parseInt(b.slice(1),16);
+  const ar=(ah>>16)&255, ag=(ah>>8)&255, ab=ah&255;
+  const br=(bh>>16)&255, bg=(bh>>8)&255, bb=bh&255;
+  const r=Math.round(ar+(br-ar)*t);
+  const g=Math.round(ag+(bg-ag)*t);
+  const bl2=Math.round(ab+(bb-ab)*t);
+  return '#'+[r,g,bl2].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+const NUM_PARTICLES = 55;
+const particles = [];
+
+function randBetween(a,b){return a+(b-a)*Math.random()}
+
+function makeParticle(i){
+  return {
+    x: randBetween(0, canvas.width),
+    y: randBetween(0, canvas.height),
+    r: randBetween(2, 7),
+    vx: randBetween(-0.35, 0.35),
+    vy: randBetween(-0.35, 0.35),
+    alpha: randBetween(0.3, 0.85),
+    colorIdx: Math.floor(Math.random() * 4),
+    pulse: randBetween(0, Math.PI*2),
+    pulseSpeed: randBetween(0.008, 0.022),
+  };
+}
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+for(let i=0;i<NUM_PARTICLES;i++) particles.push(makeParticle(i));
+
+/* Connection lines between nearby particles */
+function drawConnections(pal){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        const alpha=(1-dist/120)*0.18;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=pal.colors[0]+(Math.round(alpha*255).toString(16).padStart(2,'0'));
+        ctx.lineWidth=0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate(){
+  requestAnimationFrame(animate);
+  paletteLerp = Math.min(1, paletteLerp + 0.012);
+  const bg = lerpColor(curPalette.bg, targetPalette.bg, paletteLerp);
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  drawConnections(targetPalette);
+
+  particles.forEach(p=>{
+    p.pulse += p.pulseSpeed;
+    p.x += p.vx;
+    p.y += p.vy;
+    if(p.x < -20) p.x = canvas.width+20;
+    if(p.x > canvas.width+20) p.x = -20;
+    if(p.y < -20) p.y = canvas.height+20;
+    if(p.y > canvas.height+20) p.y = -20;
+
+    const pulsedR = p.r + Math.sin(p.pulse)*1.5;
+    const col = targetPalette.colors[p.colorIdx];
+    const alphaHex = Math.round(p.alpha*255).toString(16).padStart(2,'0');
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, pulsedR, 0, Math.PI*2);
+    ctx.fillStyle = col + alphaHex;
+    ctx.fill();
+
+    /* soft glow ring */
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, pulsedR*2.5, 0, Math.PI*2);
+    ctx.fillStyle = col + '18';
+    ctx.fill();
+  });
+}
+animate();
+
+/* ── SLIDES LOGIC ── */
+const slides = document.querySelectorAll('.slide');
+const dotsWrap = document.getElementById('dots');
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let cur = 0;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsWrap.appendChild(d);
+});
+
+function goTo(next) {
+  if (next === cur) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const old = cur;
+  setTimeout(() => { slides[old].classList.remove('out'); }, 560);
+  dotsWrap.children[cur].classList.remove('active');
+  cur = next;
+  slides[cur].classList.remove('out');
+  slides[cur].classList.add('active');
+  dotsWrap.children[cur].classList.add('active');
+  counter.textContent = (cur + 1) + ' / ' + slides.length;
+  prevBtn.style.opacity = cur === 0 ? '0.3' : '1';
+  prevBtn.style.pointerEvents = cur === 0 ? 'none' : 'all';
+  nextBtn.innerHTML = cur === slides.length-1 ? '✓ Done' : 'Next →';
+  nextBtn.style.background = cur === slides.length-1 ? '#10b981' : '#7c3aed';
+
+  /* switch background palette */
+  curPalette = { bg: lerpColor(curPalette.bg, targetPalette.bg, paletteLerp), colors: targetPalette.colors };
+  targetPalette = SLIDE_PALETTES[cur];
+  paletteLerp = 0;
+}
+
+function go(dir){ goTo(Math.max(0, Math.min(slides.length-1, cur+dir))); }
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
+});
+
+prevBtn.style.opacity = '0.3';
+prevBtn.style.pointerEvents = 'none';
+</script>
+</body>
+</html>
